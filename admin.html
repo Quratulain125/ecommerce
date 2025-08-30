@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+  />
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <header class="bg-indigo-950 text-white">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center py-4">
+      <div class="flex items-center gap-3">
+        <img src="images/logo.png" alt="Logo" class="w-12 h-12" />
+        <h1 class="hidden md:block text-xl font-bold">E-commerce</h1>
+      </div>
+      <ul class="hidden md:flex gap-10 text-lg font-medium">
+        <li><a href="index.html" class="hover:text-blue-400 transition">Home</a></li>
+        <li class="hover:text-blue-400 transition">About</li>
+        <li><a href="contact.html" class="hover:text-blue-400 transition">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-6">
+        <a href="wishlist.html" class="text-2xl cursor-pointer hover:text-blue-400 transition">
+          <i class="fa-solid fa-heart"></i>
+        </a>
+        <a href="cart.html" class="text-2xl cursor-pointer hover:text-blue-400 transition">
+          <i class="fa-solid fa-cart-plus"></i>
+        </a>
+        <button class="hidden md:block px-3 py-2 bg-blue-800 text-white font-medium rounded-lg hover:bg-blue-500 transition">
+          <a href="admin.html">Admin Dashboard</a>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="md:hidden flex justify-end px-4 py-2 bg-indigo-900">
+    <label for="sidebar-toggle" class="cursor-pointer text-3xl text-white">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+    <input type="checkbox" id="sidebar-toggle" class="hidden peer" />
+  </div>
+
+  <div class="flex flex-1">
+
+    <aside class="bg-indigo-950 text-white w-64 p-5 hidden md:block peer-checked:block absolute md:relative z-20 h-full md:h-auto">
+      <h1 class="text-lg font-bold mb-5">Inventory</h1>
+      <ul>
+        <li class="mb-3"><a href="admin.html" class="hover:text-gray-300"><i class="fa-solid fa-gauge"></i>&nbsp;Dashboard</a></li>
+        <li class="mb-3"><a href="addproduct.html" class="hover:text-gray-300"><i class="fa-solid fa-plus"></i>&nbsp;Add Product</a></li>
+        <li class="mb-3"><a href="viewproduct.html" class="hover:text-gray-300"><i class="fa-solid fa-eye"></i>&nbsp;View Product</a></li>
+        <li><a href="index.html" class="hover:text-gray-300"><i class="fa-solid fa-arrow-right-from-bracket"></i>&nbsp;Logout</a></li>
+      </ul>
+    </aside>
+
+    <main class="flex-1 p-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 p-5 md:p-20">
+        <div class="bg-white shadow-md rounded-lg p-5">
+          <h3 class="text-xl font-semibold">Manage Product</h3>
+          <p class="text-gray-600">View, edit, and delete products in your inventory.</p>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-5">
+          <h3 class="text-xl font-semibold">Add New Products</h3>
+          <p class="text-gray-600">Add new products to your inventory with details.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="bg-indigo-950 text-white py-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h2 class="text-xl font-bold mb-4">E-Commerce</h2>
+        <p class="text-gray-300">
+          Your one-stop shop for the latest trends in fashion, electronics, and lifestyle.
+          Shop smart. Shop easy.
+        </p>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">Quick Links</h2>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-blue-400">Home</a></li>
+          <li><a href="#" class="hover:text-blue-400">About</a></li>
+          <li><a href="#" class="hover:text-blue-400">Contact</a></li>
+          <li><a href="#" class="hover:text-blue-400">Dashboard</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">Customer Service</h2>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="#" class="hover:text-blue-400">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-blue-400">Terms & Conditions</a></li>
+          <li><a href="#" class="hover:text-blue-400">Help & Support</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-xl font-bold mb-4">Contact Us</h2>
+        <ul class="space-y-3 text-gray-300">
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400"><i class="fa-solid fa-location-dot"></i></span> Lahore, Pakistan
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400"><i class="fa-solid fa-envelope"></i></span> support@gmail.com
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="text-blue-400"><i class="fa-solid fa-phone"></i></span> +92 312 3456789
+          </li>
+        </ul>
+        <div class="flex gap-4 mt-4 text-xl">
+          <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="hover:text-blue-400"><i class="fa-brands fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 text-center mt-8 pt-4 text-gray-400 text-sm">
+      © 2025 E-Commerce. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>
+
