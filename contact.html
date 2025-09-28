@@ -138,6 +138,34 @@
     © 2025 E-Commerce. All rights reserved.
   </div>
 </footer>
-    
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value.trim();
+    const subject = document.getElementById("subject").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    if (!email || !subject || !message) {
+      alert(" Please fill in all fields.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      alert("Enter a valid email address.");
+      return;
+    }
+
+    let messages = JSON.parse(localStorage.getItem("messages")) || [];
+    messages.push({ email, subject, message, date: new Date().toLocaleString() });
+    localStorage.setItem("messages", JSON.stringify(messages));
+
+    alert(" Your message has been sent!");
+    form.reset();
+  });
+});
+</script>
+
 </body>
 </html>

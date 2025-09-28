@@ -146,6 +146,36 @@
       © 2025 E-Commerce. All rights reserved.
     </div>
   </footer>
-    
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const payment = document.getElementById("payment").value;
+
+    if (!name || !email || !address) {
+      alert(" All fields are required.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      alert(" Enter a valid email.");
+      return;
+    }
+
+    const order = { name, email, address, payment, date: new Date().toLocaleString() };
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(order);
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    alert(" Order placed successfully!");
+    form.reset();
+  });
+});
+</script>
+
 </body>
 </html>

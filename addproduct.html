@@ -70,7 +70,7 @@
     <div class="flex-1 p-6">
       <div class="flex md:hidden justify-between items-center mb-4">
         <h1 class="text-xl font-bold">Dashboard</h1>
-        <button class="text-gray-700 text-3xl">☰</button>
+        <button class="text-gray-700 text-3xl"><i class="fa-solid fa-bars"></i></button>
       </div>
 
       <div class="bg-white rounded-2xl shadow-lg p-6 mt-30">
@@ -150,5 +150,45 @@
       © 2025 E-Commerce. All rights reserved.
     </div>
   </footer>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.querySelector("form");
+  const fileInput = form.querySelector("input[type='file']");
+  const imagePreview = document.querySelector(".flex.items-center.justify-center");
+  
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        imagePreview.innerHTML = `<img src="${reader.result}" class="w-32 h-32 object-cover rounded">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = form.querySelector("input[placeholder='Product Title']").value.trim();
+    const price = form.querySelector("input[placeholder='Product Price']").value.trim();
+    const description = form.querySelector("textarea").value.trim();
+    const category = form.querySelector("select").value;
+
+    if (!title || !price || !description || category === "Select Category") {
+      alert(" Please fill all fields correctly.");
+      return;
+    }
+
+    let products = JSON.parse(localStorage.getItem("products")) || [];
+    products.push({ title, price, description, category });
+    localStorage.setItem("products", JSON.stringify(products));
+
+    alert("Product added successfully!");
+    form.reset();
+    imagePreview.innerHTML = `<span class="text-gray-400">No Image</span>`;
+  });
+});
+</script>
+
 </body>
 </html>
