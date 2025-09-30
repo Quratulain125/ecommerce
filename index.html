@@ -272,11 +272,52 @@
     © 2025 E-Commerce. All rights reserved.
   </div>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
 
-<script src="index.js"></script>
+  function saveData() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }
+
+  document.querySelectorAll(".bg-white").forEach(product => {
+    const title = product.querySelector("h2").innerText;
+    const price = product.querySelector("p.text-blue-600").innerText;
+    const img = product.querySelector("img").src;
+
+    product.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (btn.innerText.includes("Cart")) {
+          const exists = cart.find(item => item.title === title);
+          if (exists) {
+            alert("Item already in cart!");
+          } else {
+            cart.push({ title, price, img, qty: 1 });
+            saveData();
+            alert("Item added to cart!");
+          }
+        }
+
+        if (btn.innerText.includes("Wishlist")) {
+          const exists = wishlist.find(item => item.title === title);
+          if (exists) {
+            alert("Item already in wishlist!");
+          } else {
+            wishlist.push({ title, price, img });
+            saveData();
+            alert("Item added to wishlist!");
+          }
+        }
+      });
+    });
+  });
+});
 
 
 
+</script>
 
 
 

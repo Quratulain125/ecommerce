@@ -149,32 +149,38 @@
     <script>
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
 
-  form.addEventListener("submit", (e) => {
+  const loggedUser = JSON.parse(localStorage.getItem("user"));
+  if (loggedUser) {
+    nameInput.value = loggedUser.name || "";
+    emailInput.value = loggedUser.email || "";
+  }
+
+  form.addEventListener("submit", e => {
     e.preventDefault();
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
+
+    const name = nameInput.value.trim();
+    const email = emailInput.value.trim();
     const address = document.getElementById("address").value.trim();
     const payment = document.getElementById("payment").value;
 
     if (!name || !email || !address) {
-      alert(" All fields are required.");
-      return;
-    }
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      alert(" Enter a valid email.");
+      alert("Please fill all fields.");
       return;
     }
 
     const order = { name, email, address, payment, date: new Date().toLocaleString() };
-    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    const orders = JSON.parse(localStorage.getItem("orders")) || [];
     orders.push(order);
     localStorage.setItem("orders", JSON.stringify(orders));
 
-    alert(" Order placed successfully!");
+    alert("Order placed successfully!");
     form.reset();
   });
 });
+
 </script>
 
 </body>

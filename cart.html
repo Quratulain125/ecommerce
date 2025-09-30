@@ -206,6 +206,66 @@
     © 2025 E-Commerce. All rights reserved.
   </div>
 </footer>
-<script src="index.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const tbody = document.querySelector("tbody");
+  const totalEl = document.querySelector(".flex h2, .flex .text-lg");
+
+  function renderCart() {
+    tbody.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+      const subTotal = parseFloat(item.price.replace("$","")) * item.qty;
+      total += subTotal;
+
+      const row = document.createElement("tr");
+      row.classList.add("border-b");
+      row.innerHTML = `
+        <td class="py-3 px-4"><img src="${item.img}" class="w-16 h-16 rounded"></td>
+        <td class="py-3 px-4">${item.title}</td>
+        <td class="py-3 px-4">${item.price}</td>
+        <td class="py-3 px-4">
+          <div class="flex items-center space-x-2">
+            <button class="dec px-2 py-1 bg-gray-300 rounded">-</button>
+            <span>${item.qty}</span>
+            <button class="inc px-2 py-1 bg-gray-300 rounded">+</button>
+          </div>
+        </td>
+        <td class="py-3 px-4">$${subTotal.toFixed(2)}</td>
+        <td class="py-3 px-4"><button class="remove bg-red-500 text-white px-3 py-1 rounded">Remove</button></td>
+      `;
+      tbody.appendChild(row);
+
+      row.querySelector(".inc").addEventListener("click", () => {
+        cart[index].qty++;
+        saveData();
+        renderCart();
+      });
+
+      row.querySelector(".dec").addEventListener("click", () => {
+        if (cart[index].qty > 1) cart[index].qty--;
+        saveData();
+        renderCart();
+      });
+
+      row.querySelector(".remove").addEventListener("click", () => {
+        cart.splice(index, 1);
+        saveData();
+        renderCart();
+      });
+    });
+
+    totalEl.innerText = `Total: $${total.toFixed(2)}`;
+  }
+
+  function saveData() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  renderCart();
+});
+
+</script>
 </body>
 </html>

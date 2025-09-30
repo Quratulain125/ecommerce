@@ -16,6 +16,31 @@ if (document.title.includes('Ecommerce')) {
       prod.style.display = title.includes(text) ? '' : 'none';
     });
   };
+  
+const cartButtons = document.querySelectorAll("button.bg-green-500");
+
+cartButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const productCard = button.closest("div.p-5");
+    const name = productCard.querySelector("h2").innerText;
+    const price = productCard.querySelector("p.text-blue-600").innerText;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const exists = cart.some(item => item.name === name);
+
+    if (exists) {
+      alert(`${name} is already in your cart!`);
+    } else {
+      cart.push({ name, price });
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+
+    }
+  });
+});
+
 
   searchInput?.addEventListener('input', filterProducts);
 
@@ -90,6 +115,9 @@ if (location.pathname.endsWith('cart.html')) {
       row.children[4].textContent = `$${(price*qty).toFixed(2)}`;
       total += price*qty;
     });
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const exists = cart.some(item => item.name === name);
     document.querySelector('h2').textContent = `Total: $${total.toFixed(2)}`;
   };
 
