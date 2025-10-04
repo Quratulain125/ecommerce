@@ -281,6 +281,38 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }
+  document.addEventListener("DOMContentLoaded", () => {
+
+  const searchInput = document.querySelector('input[placeholder="Search Products..."]');
+  const productCards = document.querySelectorAll('.bg-white.shadow-lg');
+
+  searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    productCards.forEach(card => {
+      const title = card.querySelector('h2').innerText.toLowerCase();
+      if (title.includes(query)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+ const searchInput = document.querySelector('input[placeholder="Search Products..."]');
+  const productCards = document.querySelectorAll('.bg-white.shadow-lg');
+
+  searchInput.addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    productCards.forEach(card => {
+      const title = card.querySelector('h2').innerText.toLowerCase();
+      if (title.includes(query)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
 
   document.querySelectorAll(".bg-white").forEach(product => {
     const title = product.querySelector("h2").innerText;
