@@ -148,7 +148,7 @@
     </div>
 
     <div class="flex flex-col md:flex-row justify-between items-center mt-6 bg-white p-4 rounded-lg shadow">
-      <h2 class="text-lg font-bold mb-4 md:mb-0">Total: $204.23</h2>
+      <!-- <h2 class="text-lg font-bold mb-4 md:mb-0">Total: $204.23</h2> -->
       <a href="checkout.html" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded">
         Checkout
       </a>
@@ -265,6 +265,77 @@
 
   renderCart();
 });
+document.addEventListener("DOMContentLoaded", () => {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const tbody = document.querySelector("tbody");
+  const totalEl = document.querySelector(".flex h2, .flex .text-lg");
+  const searchInput = document.createElement("input");
+
+searchInput.type = "text";
+searchInput.placeholder = "Search in cart...";
+searchInput.className = "w-40 border p-2 rounded";
+const searchWrapper = document.createElement("div");
+searchWrapper.className = "flex justify-center mb-4";
+searchWrapper.appendChild(searchInput);
+document.querySelector(".container").prepend(searchWrapper);
+
+  function renderCart(filter = "") {
+    tbody.innerHTML = "";
+    let total = 0;
+    cart.forEach((item, index) => {
+      if (!item.title.toLowerCase().includes(filter.toLowerCase())) return;
+
+      const subTotal = parseFloat(item.price.replace("$", "")) * item.qty;
+      total += subTotal;
+
+      const row = document.createElement("tr");
+      row.classList.add("border-b");
+      row.innerHTML = `
+        <td class="py-3 px-4"><img src="${item.img}" class="w-16 h-16 rounded"></td>
+        <td class="py-3 px-4">${item.title}</td>
+        <td class="py-3 px-4">${item.price}</td>
+        <td class="py-3 px-4">
+          <div class="flex items-center space-x-2">
+            <button class="dec px-2 py-1 bg-gray-300 rounded">-</button>
+            <span>${item.qty}</span>
+            <button class="inc px-2 py-1 bg-gray-300 rounded">+</button>
+          </div>
+        </td>
+        <td class="py-3 px-4">$${subTotal.toFixed(2)}</td>
+        <td class="py-3 px-4"><button class="remove bg-red-500 text-white px-3 py-1 rounded">Remove</button></td>
+      `;
+      tbody.appendChild(row);
+
+      row.querySelector(".inc").addEventListener("click", () => {
+        cart[index].qty++;
+        saveData();
+        renderCart(filter);
+      });
+
+      row.querySelector(".dec").addEventListener("click", () => {
+        if (cart[index].qty > 1) cart[index].qty--;
+        saveData();
+        renderCart(filter);
+      });
+
+      row.querySelector(".remove").addEventListener("click", () => {
+        cart.splice(index, 1);
+        saveData();
+        renderCart(filter);
+      });
+    });
+
+    totalEl.innerText = `Total: $${total.toFixed(2)}`;
+  }
+
+  function saveData() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  searchInput.addEventListener("input", () => renderCart(searchInput.value));
+  renderCart();
+});
+
 
 </script>
 </body>

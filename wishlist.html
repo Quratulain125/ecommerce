@@ -182,6 +182,70 @@
     });
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  const grid = document.querySelector(".grid");
+  const searchInput = document.createElement("input");
+
+searchInput.type = "text";
+searchInput.placeholder = "Search in wishlist...";
+searchInput.className = "w-40 border p-2 mb-6 mt-10 rounded";
+const searchWrapper = document.createElement("div");
+searchWrapper.className = "flex justify-center";
+searchWrapper.appendChild(searchInput);
+document.querySelector("main").prepend(searchWrapper);
+
+  function saveData() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }
+
+  function renderWishlist(filter = "") {
+    grid.innerHTML = "";
+    wishlist.forEach(item => {
+      if (!item.title.toLowerCase().includes(filter.toLowerCase())) return;
+
+      const card = document.createElement("article");
+      card.className = "bg-white shadow-lg rounded-md flex flex-col";
+      card.innerHTML = `
+        <div class="h-80 flex items-center justify-center">
+          <img class="max-h-full object-contain" src="${item.img}" alt="${item.title}" />
+        </div>
+        <div class="p-5 text-center flex flex-col flex-grow">
+          <h2 class="text-xl font-bold text-gray-800">${item.title}</h2>
+          <p class="text-blue-600 text-lg font-semibold mt-1">${item.price}</p>
+          <div class="mt-auto space-y-3">
+            <button class="addCart w-full bg-green-500 text-white py-2 px-4 rounded-lg shadow-md">Add to Cart</button>
+            <button class="remove w-full bg-red-500 text-white py-2 px-4 rounded-lg shadow-md">Remove</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+
+      card.querySelector(".addCart").addEventListener("click", () => {
+        const exists = cart.find(c => c.title === item.title);
+        if (exists) {
+          alert("Item already in cart!");
+        } else {
+          cart.push({ ...item, qty: 1 });
+          saveData();
+          alert("Item added to cart!");
+        }
+      });
+
+      card.querySelector(".remove").addEventListener("click", () => {
+        wishlist = wishlist.filter(w => w.title !== item.title);
+        saveData();
+        renderWishlist(filter);
+      });
+    });
+  }
+
+  searchInput.addEventListener("input", () => renderWishlist(searchInput.value));
+  renderWishlist();
+});
+
 
 </script>
 

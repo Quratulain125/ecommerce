@@ -204,11 +204,8 @@
         </div>
       </div>
     </div>
-
   </div>
-</div>
-
-   
+</div>  
    <div class="flex flex-col sm:flex-row gap-2 justify-center items-center text-center p-6">
   <button class="border px-5 py-2 rounded-lg bg-blue-400 hover:bg-blue-500 transition w-full sm:w-auto">
     1
@@ -281,27 +278,11 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }
-  document.addEventListener("DOMContentLoaded", () => {
-
-  const searchInput = document.querySelector('input[placeholder="Search Products..."]');
-  const productCards = document.querySelectorAll('.bg-white.shadow-lg');
-
-  searchInput.addEventListener('input', function () {
-    const query = this.value.toLowerCase();
-    productCards.forEach(card => {
-      const title = card.querySelector('h2').innerText.toLowerCase();
-      if (title.includes(query)) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-});
+ 
  const searchInput = document.querySelector('input[placeholder="Search Products..."]');
   const productCards = document.querySelectorAll('.bg-white.shadow-lg');
 
-  searchInput.addEventListener('input', function () {
+  searchInput.addEventListener('input' , function () {
     const query = this.value.toLowerCase();
     productCards.forEach(card => {
       const title = card.querySelector('h2').innerText.toLowerCase();
@@ -312,8 +293,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-
-
   document.querySelectorAll(".bg-white").forEach(product => {
     const title = product.querySelector("h2").innerText;
     const price = product.querySelector("p.text-blue-600").innerText;
@@ -339,20 +318,13 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             wishlist.push({ title, price, img });
             saveData();
-            alert("Item added to wishlist!");
+            alert("item added to wishlist!");
           }
         }
       });
     });
   });
 });
-
-
-
 </script>
-
-
-
-
   </body>
 </html>
